@@ -1,11 +1,15 @@
 
-import RouteApp from './pages/Routes/RoutesApp';
+import RouteApp from './Routes/RoutesApp';
 import { ChakraProvider, theme } from '@chakra-ui/react';
+import Footer from './components/footer';
+import Navbar from './components/navbar';
 
 function App() {
   return (
     <ChakraProvider>
+      <Navbar />
       <RouteApp />
+      <Footer />
     </ChakraProvider>
   );
 }
