@@ -56,7 +56,7 @@ import {
 function SectionFive () {
 return (
     <>
-    <Box  w={'60%'} m={'auto'}>
+    <Box  w={{base: '100%', lg:'60%'}} m={'auto'}>
         <Box p={4} w={'100%'}>
             <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
             <Heading fontSize={'3xl'}>Lebih dari sekadar omnichannel, Jubelio adalah ekosistem</Heading>

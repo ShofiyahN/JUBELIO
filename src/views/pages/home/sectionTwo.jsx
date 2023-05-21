@@ -74,8 +74,8 @@ import {
   
  function SectionTwo() {
     return (
-        <Box display={'flex'} w={'97%'} m={'auto'}>
-            <Box p={4} w={'50%'}>
+        <Box display={{base: "contents", lg:"flex"}} w={'97%'} m={'auto'}>
+            <Box p={4} w={["100%","100%",'50%']}>
                 <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
                 <Heading fontSize={'3xl'}>Jadi yang terbaik bersama kami</Heading>
                 <Text color={'gray.600'} fontSize={'xl'}>
@@ -100,7 +100,7 @@ import {
                 </Container>
             </Box>
 
-            <Box p={5} w={'50%'}>
+            <Box p={5} w={["100%","100%",'50%']}>
     
           <Container maxW={'7xl'} mt={12}>
             <Flex flexWrap="wrap" gridGap={6} justify="center">

@@ -10,7 +10,7 @@ import {
 function SectionThree () {
 return (
     <>
-    <Box  w={'60%'} m={'auto'} padding={'3%'}>
+    <Box  w={{base: '100%', lg:'60%'}} m={'auto'} padding={'3%'}>
         <Box p={4} w={'100%'}>
             <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
             <Heading fontSize={'3xl'}>Jadi yang terbaik bersama kami</Heading>
@@ -22,7 +22,7 @@ return (
           <Stack alignItems={'center'} mt={'2%'}>
             <Button
             as={'a'}
-            w={'20%'}
+            w={{base: '50%', lg:'20%'}}
             fontSize={'sm'}
             fontWeight={600}
             color={'white'}
