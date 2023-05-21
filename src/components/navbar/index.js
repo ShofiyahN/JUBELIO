@@ -1,250 +1,334 @@
-import { useNavigate } from "react-router-dom";
-import logo from "../../utils/logo/deoapp-logo.png";
-import person from "../../utils/logo/person.png"
-import { useState } from "react";
-import { produk } from "./utils";
-
-
 
 import {
+  Box,
+  Flex,
+  Text,
+  Image,
+  IconButton,
+  Button,
+  Stack,
+  Collapse,
+  Icon,
+  Link,
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverBody,
-} from '@chakra-ui/react'
-
-// ** Chakra UI
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Container,
-  Divider,
-  Flex,
-  HStack,
-  IconButton,
-  useBreakpointValue,
+  useColorModeValue,
   useDisclosure,
-  Link,
-  Image,
-  Center
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
+
 import {
-  Drawer,
-  DrawerBody,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-} from '@chakra-ui/react'
-
-import { BiSearch } from "react-icons/bi";
-import { IoPersonOutline, IoBagOutline, IoHeartOutline } from "react-icons/io5";
-
-
-// ** React Icons
-import { FiMenu } from "react-icons/fi";
-import { CgMenuGridO } from "react-icons/cg";
-import { VscGraph } from "react-icons/vsc";
-import { MdOutlineNotificationsNone } from "react-icons/md";
+  HamburgerIcon,
+  CloseIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+} from '@chakra-ui/icons';
 
 
 
 function Navbar() {
-  const [change, setChange] = useState()
-  const navigate = useNavigate()
-  const isDesktop = useBreakpointValue({
-    base: false,
-    lg: true,
-  });
-  const { isOpen, onOpen, onClose } = useDisclosure()
 
+  const { isOpen, onToggle } = useDisclosure();
+  const DesktopNav = () => {
+    const linkColor = useColorModeValue('gray.600', 'gray.200');
+    const linkHoverColor = useColorModeValue('gray.800', 'white');
+    const popoverContentBgColor = useColorModeValue('white', 'gray.800');
+
+    return (
+      <Stack direction={'row'} spacing={4}>
+        {NAV_ITEMS.map((navItem) => (
+          <Box key={navItem.label}>
+            <Popover trigger={'hover'} placement={'bottom-start'}>
+              <PopoverTrigger>
+                <Link
+                  p={2}
+                  href={navItem.href ?? '#'}
+                  fontSize={'sm'}
+                  fontWeight={500}
+                  color={linkColor}
+                  _hover={{
+                    textDecoration: 'none',
+                    color: linkHoverColor,
+                  }}>
+                  {navItem.label}
+                </Link>
+              </PopoverTrigger>
+
+              {navItem.children && (
+                <PopoverContent
+                  border={0}
+                  boxShadow={'xl'}
+                  bg={popoverContentBgColor}
+                  p={4}
+                  rounded={'xl'}
+                  minW={'sm'}>
+                  <Stack>
+                    {navItem.children.map((child) => (
+                      <DesktopSubNav key={child.label} {...child} />
+                    ))}
+                  </Stack>
+                </PopoverContent>
+              )}
+            </Popover>
+          </Box>
+        ))}
+      </Stack>
+    );
+  }
+
+  const DesktopSubNav = ({ label, href, subLabel }) => {
+    return (
+      <Link
+        href={href}
+        role={'group'}
+        display={'block'}
+        p={2}
+        rounded={'md'}
+        _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
+        <Stack direction={'row'} align={'center'}>
+          <Box>
+            <Text
+              transition={'all .3s ease'}
+              _groupHover={{ color: 'pink.400' }}
+              fontWeight={500}>
+              {label}
+            </Text>
+            <Text fontSize={'sm'}>{subLabel}</Text>
+          </Box>
+          <Flex
+            transition={'all .3s ease'}
+            transform={'translateX(-10px)'}
+            opacity={0}
+            _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
+            justify={'flex-end'}
+            align={'center'}
+            flex={1}>
+            <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+          </Flex>
+        </Stack>
+      </Link>
+    );
+  }
+
+  const MobileNav = () => {
+    return (
+      <Stack
+        bg={useColorModeValue('white', 'gray.800')}
+        p={4}
+        display={{ md: 'none' }}>
+        {NAV_ITEMS.map((navItem) => (
+          <MobileNavItem key={navItem.label} {...navItem} />
+        ))}
+      </Stack>
+    );
+  }
+
+  const MobileNavItem = ({ label, children, href }) => {
+    const { isOpen, onToggle } = useDisclosure();
+
+    return (
+      <Stack spacing={4} onClick={children && onToggle}>
+        <Flex
+          py={2}
+          as={Link}
+          href={href ?? '#'}
+          justify={'space-between'}
+          align={'center'}
+          _hover={{
+            textDecoration: 'none',
+          }}>
+          <Text
+            fontWeight={600}
+            color={useColorModeValue('gray.600', 'gray.200')}>
+            {label}
+          </Text>
+          {children && (
+            <Icon
+              as={ChevronDownIcon}
+              transition={'all .25s ease-in-out'}
+              transform={isOpen ? 'rotate(180deg)' : ''}
+              w={6}
+              h={6}
+            />
+          )}
+        </Flex>
+
+        <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
+          <Stack
+            mt={2}
+            pl={4}
+            borderLeft={1}
+            borderStyle={'solid'}
+            borderColor={useColorModeValue('gray.200', 'gray.700')}
+            align={'start'}>
+            {children &&
+              children.map((child) => (
+                <Link key={child.label} py={2} href={child.href}>
+                  {child.label}
+                </Link>
+              ))}
+          </Stack>
+        </Collapse>
+      </Stack>
+    );
+  }
+
+  const NAV_ITEMS = [
+    {
+      label: 'Produk',
+      children: [
+        {
+          label: 'Katalog',
+          href: '#',
+        },
+        {
+          label: 'Persediaan',
+          href: '#',
+        },
+        {
+          label: 'Pesanan',
+          href: '#',
+        },
+        {
+          label: 'Gudang (WMS)',
+          href: '#',
+        },
+        {
+          label: 'Inteligensi Bisnis',
+          href: '#',
+        },
+        {
+          label: 'Pembukuan',
+          href: '#',
+        },
+      ],
+    },
+    {
+      label: 'Harga',
+      children: [
+        {
+          label: 'Job Board',
+          subLabel: 'Find your dream design job',
+          href: '#',
+        },
+        {
+          label: 'Freelance Projects',
+          subLabel: 'An exclusive list for contract work',
+          href: '#',
+        },
+      ],
+    },
+    {
+      label: 'Partner',
+      href: '#',
+    },
+    {
+      label: 'Affiliasi',
+      children: [
+        {
+          label: 'Affiliasi',
+          href: '#',
+        },
+        {
+          label: 'Ambasador',
+          href: '#',
+        },
+
+      ]
+    },
+    {
+      label: 'Dukungan',
+      children: [
+        {
+          label: 'Layanan Purna Jual',
+          href: '#',
+        },
+        {
+          label: 'Integrasi API',
+          href: '#',
+        },
+        {
+          label: 'Kelas Onine',
+          href: '#',
+        },
+      ]
+    },
+  ]
 
   return (
-    <Box
-      as="section"
-      bg={'white'}
-    >
-      <Box as="nav" bg="bg-surface">
-        <Container
-          py={{
-            base: "3",
-            lg: "3",
-          }}
-          px={{ base: "10", lg: "20" }}
-          maxW="100%"
-          color={'black'}
-
+    <>
+      <Box>
+        <Flex
+          bg={useColorModeValue('white', 'gray.800')}
+          color={useColorModeValue('gray.600', 'white')}
+          minH={'60px'}
+          py={{ base: 2 }}
+          px={{ base: 4 }}
+          borderBottom={1}
+          borderStyle={'solid'}
+          borderColor={useColorModeValue('gray.200', 'gray.900')}
+          align={'center'}
         >
-
-          <HStack spacing="10" justify={'space-between'} >
-            <HStack>
-              {isDesktop ?
-                <></> :
-                <>
-                  <IconButton
-                    variant="ghost"
-                    icon={<FiMenu fontSize="1.25rem" />}
-                    aria-label="Open Menu"
-                    _hover={{ bg: "transparent" }}
-                    onClick={onOpen}
-                  />
-                  <Drawer placement={'left'} onClose={onClose} isOpen={isOpen}>
-                    <DrawerOverlay />
-                    <DrawerContent >
-                      <DrawerHeader borderBottomWidth='1px' >
-                        <Flex justifyContent={'space-around'} py={'10px'}>
-                          <Button h={'25px'} flex={1} borderRight={'3px solid #f2f2f2'} px={'30px'} borderRadius={'none'} bg={'transparent'} _hover={{ bg: "transparent" }} onClick={() => setChange(false)}>WOMEN</Button>
-                          <Button h={'25px'} flex={1} bg={'transparent'} px={'30px'} _hover={{ bg: "transparent" }} onClick={() => setChange(true)}>MEN</Button>
-                        </Flex>
-                      </DrawerHeader>
-                      <DrawerBody>
-                        {/* {change ? <MenuMan /> : <MenuWomen />} */}
-                      </DrawerBody>
-                    </DrawerContent>
-                  </Drawer>
-                </>
-
-
+          <Flex
+            flex={{ base: 1, md: 'auto' }}
+            ml={{ base: -2 }}
+            display={{ base: 'flex', md: 'none' }}>
+            <IconButton
+              onClick={onToggle}
+              icon={
+                isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
               }
-              <Link>
-                <CgMenuGridO fontSize={'50px'} />
-              </Link>
-              <Link href="/">
-                <Image src={logo} alt="DeoApp" width={50} />
-              </Link>
-            </HStack>
+              variant={'ghost'}
+              aria-label={'Toggle Navigation'}
+            />
+          </Flex>
+          <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+            <Image w={['100%', '30%', '10%']} src='https://assets.cdn.filesafe.space/g5ixcUwLF94aB6ka3IVG/media/64174d501639e03e287e2160.png' />
 
+            <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+              <DesktopNav />
+            </Flex>
+          </Flex>
 
-            {isDesktop ? (
-              <Flex justify="space-between" flex="1">
+          <Stack
+            flex={{ base: 1, md: 0 }}
+            justify={'flex-end'}
+            direction={'row'}
+            spacing={6}
+          >
+            <Button
+              as={'a'}
+              display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={400}
+              variant={'link'}
+              href={'#'}
+            >
+              Demo
+            </Button>
+            <Button
+              as={'a'}
+              // display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={600}
+              color={'white'}
+              bg={'#14C38E'}
+              href={'#'}
+              _hover={{
+                bg: '#00FFAB',
+              }}
+            >
+              Masuk
+            </Button>
+          </Stack>
+        </Flex>
 
-                <HStack spacing={10}>
-                  <Link>
-                    <VscGraph fontSize={'30px'} />
-                  </Link>
-                  <ButtonGroup variant="link" spacing="8">
-                    <Popover trigger="hover">
-                      <PopoverTrigger>
-                        <Button
-                          variant="link"
-                          // rightIcon={<PopoverIcon isOpen={isOpen} />}
-                          onClick={() => navigate('/men')}
-                          color={'black'}
-                        >
-                          Produk
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <PopoverBody>
-                          {
-                            produk.map((item, index) => (
-                              <Center py={'10px'} borderBottom={'1px solid #f2f2f2'} >
-                                <Link _hover={{ color: "blue" }}>
-                                  {item.title}
-                                </Link>
-
-                              </Center>
-                            ))
-                          }
-                        </PopoverBody>
-                      </PopoverContent>
-                    </Popover>
-
-                  </ButtonGroup>
-                  <ButtonGroup variant="link" spacing="8">
-                    <Button
-                      variant="link"
-                      // rightIcon={<PopoverIcon isOpen={isOpen2} />}
-                      onClick={() => navigate('/women')}
-                      color={'black'}
-                    >
-                      Harga
-                    </Button>
-                  </ButtonGroup>
-                  <ButtonGroup variant="link" spacing="8">
-                    <Button
-                      variant="link"
-                      // rightIcon={<PopoverIcon isOpen={isOpen2} />}
-                      onClick={() => navigate('/women')}
-                      color={'black'}
-                    >
-                      Partner
-                    </Button>
-                  </ButtonGroup>
-                  <ButtonGroup variant="link" spacing="8">
-                    <Button
-                      variant="link"
-                      // rightIcon={<PopoverIcon isOpen={isOpen2} />}
-                      onClick={() => navigate('/women')}
-                      color={'black'}
-                    >
-                      Affiliasi
-                    </Button>
-                  </ButtonGroup>
-                  <ButtonGroup variant="link" spacing="8">
-                    <Button
-                      variant="link"
-                      // rightIcon={<PopoverIcon isOpen={isOpen2} />}
-                      onClick={() => navigate('/women')}
-                      color={'black'}
-                    >
-                      Dukungan
-                    </Button>
-                  </ButtonGroup>
-                </HStack>
-
-                <HStack spacing="7" >
-                  <Link href="/signin" >
-                    <MdOutlineNotificationsNone fontSize={'27px'} />
-                  </Link>
-                  <Link href="/signin">
-                    <Image borderRadius={'full'} w={'40px'} src={person} />
-                  </Link>
-
-                  {/* <Link href="/signin">
-                    <Button variant="ghost">Sign in</Button>
-                  </Link>
-                  <Link href="/signup">
-                    <Button variant="primary">Sign up</Button>
-                  </Link> */}
-                </HStack>
-              </Flex>
-            ) : (
-              <HStack spacing="3" >
-                <Link href="/signin" >
-                  <BiSearch fontSize={'24px'} color={'white'} />
-                </Link>
-                <Link href="/signin" >
-                  <IoPersonOutline fontSize={'22px'} />
-                </Link>
-                <Link href="/signin">
-                  <IoHeartOutline fontSize={'22px'} />
-                </Link>
-                <Link href="/signin">
-                  <IoBagOutline fontSize={'22px'} />
-                </Link>
-
-                {/* <Link href="/signin">
-                    <Button variant="ghost">Sign in</Button>
-                  </Link>
-                  <Link href="/signup">
-                    <Button variant="primary">Sign up</Button>
-                  </Link> */}
-
-              </HStack>
-
-            )}
-          </HStack>
-        </Container>
-        <Divider />
+        <Collapse in={isOpen} animateOpacity>
+          <MobileNav />
+        </Collapse>
       </Box>
-
-
-
-      {/* <ResourcesSubmenu isOpen={isDesktop && isOpen} />
-      <ResourcesSubmenu isOpen={isDesktop && isOpen2} /> */}
-    </Box>
-  );
+    </>
+  )
 }
 
-export default Navbar;
+export default Navbar
