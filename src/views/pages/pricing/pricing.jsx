@@ -29,14 +29,13 @@ function PriceWrapper({ children }) {
 
 function Pricing () {
     return (
-        <Box py={12}>
+        <Box py={12} w={'70%'} m={'auto'} >
           <VStack spacing={2} textAlign="center">
             <Heading as="h1" fontSize="4xl">
-              Plans that fit your need
+            Kelola Jualan Online & Offline Lewat Satu Sistem
             </Heading>
             <Text fontSize="lg" color={'gray.500'}>
-              Start with 14-day free trial. No credit card needed. Cancel at
-              anytime.
+            Gak perlu berlangganan beberapa platform berbeda untuk urus operasional bisnismu. Dengan Jubelio, kamu bisa dapatkan Omnichannel, POS, Store, Chat, hingga Shipment hanya lewat satu sistem saja tanpa biaya tambahan.
             </Text>
           </VStack>
           <Stack
@@ -48,7 +47,7 @@ function Pricing () {
             <PriceWrapper>
               <Box py={4} px={12}>
                 <Text fontWeight="500" fontSize="2xl">
-                  Hobby
+                Basic
                 </Text>
                 <HStack justifyContent="center">
                   <Text fontSize="3xl" fontWeight="600">
@@ -90,26 +89,10 @@ function Pricing () {
     
             <PriceWrapper>
               <Box position="relative">
-                <Box
-                  position="absolute"
-                  top="-16px"
-                  left="50%"
-                  style={{ transform: 'translate(-50%)' }}>
-                  <Text
-                    textTransform="uppercase"
-                    bg={'#14C38E'}
-                    px={3}
-                    py={1}
-                    color={useColorModeValue('gray.900', 'gray.300')}
-                    fontSize="sm"
-                    fontWeight="600"
-                    rounded="xl">
-                    Most Popular
-                  </Text>
-                </Box>
+                
                 <Box py={4} px={12}>
                   <Text fontWeight="500" fontSize="2xl">
-                    Growth
+                  Professional
                   </Text>
                   <HStack justifyContent="center">
                     <Text fontSize="3xl" fontWeight="600">
@@ -160,7 +143,7 @@ function Pricing () {
             <PriceWrapper>
               <Box py={4} px={12}>
                 <Text fontWeight="500" fontSize="2xl">
-                  Scale
+                Enterprise
                 </Text>
                 <HStack justifyContent="center">
                   <Text fontSize="3xl" fontWeight="600">

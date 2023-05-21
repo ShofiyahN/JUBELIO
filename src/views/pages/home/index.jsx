@@ -12,14 +12,12 @@ import SectionFive from "./sectionFive";
 function IndexHome () {
     return(
         <>
-        <Header/>
         <CallToAction/>
         <SectionOne/>
         <SectionTwo/>
         <SectionThree/>
         <SectionFour/>
         <SectionFive/>
-        <Footer/>
         </>
     )
 }
