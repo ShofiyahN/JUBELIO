@@ -41,7 +41,7 @@ function CallToAction () {
     
     return(
         <>
-        <Container maxW={'7xl'} display={'flex'} w={'90'} m={'auto'}>
+        <Container maxW={'7xl'} display={'flex'} flexDirection={['column-reverse', 'row', 'row']} w={'90'} m={'auto'}>
       <Stack
         align={'center'}
         spacing={{ base: 8, md: 10 }}
