@@ -13,7 +13,8 @@ import {
     useDisclosure,
     Link,
     Image,
-    DrawerCloseButton
+    DrawerCloseButton,
+    Text
 } from "@chakra-ui/react";
 import {
     Drawer,
@@ -21,6 +22,18 @@ import {
     DrawerHeader,
     DrawerOverlay,
     DrawerContent,
+} from '@chakra-ui/react'
+
+import {
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+    PopoverHeader,
+    PopoverBody,
+    PopoverFooter,
+    PopoverArrow,
+    PopoverCloseButton,
+    PopoverAnchor,
 } from '@chakra-ui/react'
 
 
@@ -54,6 +67,13 @@ function Navbar() {
     return (
         <Box
             as="section"
+            boxShadow="md"
+            position="fixed"
+            top={0}
+            left={0}
+            right={0}
+            zIndex="sticky"
+            bg={'white'}
 
         >
             <Box as="nav" bg="bg-surface">
@@ -114,8 +134,8 @@ function Navbar() {
 
                             }
 
-                            <Link href="/">
-                                <Image src={logo} alt="LifetimeDesign" width={150} />
+                            <Link href="/product/katalog">
+                                <Image src={logo} alt="DeoApp" width={150} />
                             </Link>
                         </HStack>
 
@@ -125,30 +145,112 @@ function Navbar() {
 
                                 <HStack spacing={10}>
                                     <ButtonGroup variant="link" spacing="8">
-                                        <Button
-                                            variant="link"
-                                            rightIcon={<PopoverIcon />}
+                                        <Popover trigger="hover">
+                                            <PopoverTrigger>
+                                                <Button
+                                                    variant="link"
+                                                    rightIcon={<PopoverIcon />}
+                                                    onClick={() => navigate('/product/katalog')}
+                                                >
+                                                    Produk
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent>
+                                                <PopoverBody color={'black'}>
+                                                    <Box px={'10px'} py={'10px'} borderBottom={'1px solid #f2f2f2'} >
+                                                        <Box as={'button'} onClick={() => navigate('/product/platform')}>
+                                                            <Image w={'120px'} src={'https://jubelio.com/wp-content/uploads/2023/03/Jubelio-Omnichannel-1.svg'} />
+                                                        </Box>
+                                                    </Box>
+                                                    <Box px={'10px'} py={'10px'} borderBottom={'1px solid #f2f2f2'}>
+                                                        <Button onClick={() => navigate('/product/katalog')} bg={'transparent'}>Katalog</Button>
+                                                    </Box>
+                                                    <Box px={'10px'} py={'10px'} borderBottom={'1px solid #f2f2f2'}>
+                                                        <Button onClick={() => navigate('/product/persediaan')} bg={'transparent'}>Persediaan</Button>
+                                                    </Box>
+                                                    <Box px={'10px'} py={'10px'} borderBottom={'1px solid #f2f2f2'}>
+                                                        <Button onClick={() => navigate('/product/pesanan')} bg={'transparent'}>Pesanan</Button>
+                                                    </Box>
+                                                    <Box px={'10px'} py={'10px'} borderBottom={'1px solid #f2f2f2'}>
+                                                        <Button onClick={() => navigate('/product/gudang')} bg={'transparent'}>Gudang (WMS)</Button>
+                                                    </Box>
+                                                    <Box px={'10px'} py={'10px'} borderBottom={'1px solid #f2f2f2'}>
+                                                        <Button onClick={() => navigate('/product/intelegensi-bisnis')} bg={'transparent'}>Intelegensi Bisnis</Button>
+                                                    </Box>
+                                                    <Box px={'10px'} py={'10px'} borderBottom={'1px solid #f2f2f2'}>
+                                                        <Button onClick={() => navigate('/product/pembukuan')} bg={'transparent'}>Pembukuaan</Button>
+                                                    </Box>
+                                                    <Box px={'10px'} py={'10px'} borderBottom={'1px solid #f2f2f2'}>
+                                                        <Box as={'button'} onClick={() => navigate('/product/pos')}>
+                                                            <Image w={'120px'} src={'https://jubelio.com/wp-content/uploads/2023/03/Frame-11.svg'} />
+                                                        </Box>
+                                                    </Box>
+                                                    <Box px={'10px'} py={'10px'} borderBottom={'1px solid #f2f2f2'}>
+                                                        <Box as={'button'}>
+                                                            <Image w={'120px'} src={'https://jubelio.com/wp-content/uploads/2023/03/Frame-10.svg'} />
+                                                        </Box>
 
+                                                    </Box>
+                                                    <Box px={'10px'} py={'10px'} borderBottom={'1px solid #f2f2f2'}>
+                                                        <Box as={'button'}>
+                                                            <Image w={'120px'} src={'https://jubelio.com/wp-content/uploads/2023/03/Frame-12.svg'} />
+                                                        </Box>
 
-                                        >
-                                            Produk
-                                        </Button>
-                                        <Button>Harga</Button>
-                                        <Button>Partner</Button>
-                                        <Button
-                                            variant="link"
-                                            rightIcon={<PopoverIcon />}
+                                                    </Box>
+                                                    <Box px={'10px'} py={'10px'} >
+                                                        <Box as={'button'}>
+                                                            <Image w={'120px'} src={'https://jubelio.com/wp-content/uploads/2023/03/Frame-13.svg'} />
+                                                        </Box>
 
-                                        >
-                                            Affiliasi
-                                        </Button>
-                                        <Button
-                                            variant="link"
-                                            rightIcon={<PopoverIcon />}
+                                                    </Box>
 
-                                        >
-                                            Dukungan
-                                        </Button>
+                                                </PopoverBody>
+
+                                            </PopoverContent>
+                                        </Popover>
+                                        <Button onClick={() => navigate('/harga')}>Harga</Button>
+                                        <Button onClick={() => navigate('/partner')}>Partner</Button>
+                                        <Popover trigger={'hover'}>
+                                            <PopoverTrigger>
+                                                <Button
+                                                    variant="link"
+                                                    rightIcon={<PopoverIcon />}
+                                                    onClick={() => navigate('/affiliasi/affiliasi')}
+
+                                                >
+                                                    Affiliasi
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent>
+                                                <PopoverBody color={'black'}>
+                                                    <Box px={'10px'} py={'15px'} borderBottom={'1px solid #f2f2f2'}>
+                                                        <Button onClick={() => navigate('/affiliasi/affiliasi')} bg={'transparent'}>Affiliasi</Button>
+                                                    </Box>
+                                                    <Box px={'10px'} py={'15px'} >
+                                                        <Button onClick={() => navigate('/affiliasi/ambassador')} bg={'transparent'}>Ambassador</Button>
+                                                    </Box>
+                                                </PopoverBody>
+                                            </PopoverContent>
+                                        </Popover>
+
+                                        <Popover trigger="hover">
+                                            <PopoverTrigger>
+                                                <Button
+                                                    variant="link"
+                                                    rightIcon={<PopoverIcon />}
+
+                                                >
+                                                    Dukungan
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent>
+                                                <PopoverBody>
+                                                    <Box px={'10px'} py={'15px'} >
+                                                        <Button onClick={() => navigate('/dukungan/integrasiapi')} bg={'transparent'}>Integrasi Api</Button>
+                                                    </Box>
+                                                </PopoverBody>
+                                            </PopoverContent>
+                                        </Popover>
 
                                     </ButtonGroup>
                                 </HStack>

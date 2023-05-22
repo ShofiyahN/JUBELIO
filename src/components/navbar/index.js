@@ -82,8 +82,7 @@ function Navbar() {
         href={href}
         role={'group'}
         display={'block'}
-        p={2}
-        px={10}
+        p={2} x
         rounded={'md'}
         _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
         <Stack direction={'row'} align={'center'}>

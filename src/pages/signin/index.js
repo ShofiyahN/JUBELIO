@@ -1,6 +1,4 @@
 import React, { forwardRef, useRef } from "react";
-import Link from "next/link";
-import Image from "next/image";
 
 // ** Chakra
 import {
@@ -21,14 +19,16 @@ import {
   useDisclosure,
   useMergeRefs,
   Center,
+  Link,
+  Image
 } from "@chakra-ui/react";
 
 // ** React Icons
 import { HiEye, HiEyeOff } from "react-icons/hi";
-import Navbar from "@/components/navbar";
+
 
 // ** Image
-import logo from "../../../public/ld-logo-initial.webp";
+import logo from "../../assets/logo/deoapp.png";
 
 const PasswordField = forwardRef((props, ref) => {
   const { isOpen, onToggle } = useDisclosure();
@@ -70,11 +70,12 @@ const PasswordField = forwardRef((props, ref) => {
 
 PasswordField.displayName = "PasswordField";
 
-function index() {
+function Signin() {
   return (
     <>
       <Container
         maxW="lg"
+        mt={'10'}
         py={{
           base: "12",
           md: "24",
@@ -87,7 +88,7 @@ function index() {
         <Stack spacing="8">
           <Stack spacing="6">
             <Center>
-              <Image src={logo} alt="LifetimeDesign" width={50} />
+              <Image src={logo} alt="LifetimeDesign" width={150} />
             </Center>
 
             <Stack
@@ -163,4 +164,4 @@ function index() {
   );
 }
 
-export default index;
+export default Signin;

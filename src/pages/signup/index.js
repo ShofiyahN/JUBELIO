@@ -1,8 +1,5 @@
 import React from "react";
 
-// ** Next JS
-import Link from "next/link";
-import Image from "next/image";
 
 // ** Chakra
 import {
@@ -19,12 +16,13 @@ import {
   useColorModeValue,
   Button,
   Container,
-  Divider,
   FormControl,
   FormHelperText,
   FormLabel,
   Input,
   chakra,
+  Link,
+  Image
 } from "@chakra-ui/react";
 
 // ** React Icons
@@ -32,7 +30,7 @@ import { ImQuotesLeft, ImQuotesRight } from "react-icons/im";
 import { FaStar } from "react-icons/fa";
 
 // ** Image
-import logo from "../../../public/ld-logo-initial.webp";
+import logo from "../../assets/logo/deoapp.png";
 
 // ** Components
 const Rating = (props) => {
@@ -142,7 +140,7 @@ const SignUpForm = () => (
   </Container>
 );
 
-function index() {
+function Signup() {
   return (
     <Box
       py={{
@@ -197,4 +195,4 @@ function index() {
   );
 }
 
-export default index;
+export default Signup;
