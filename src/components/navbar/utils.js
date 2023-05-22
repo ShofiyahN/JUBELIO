@@ -1,20 +1,26 @@
-export const produk = [
+export const Menus = [
     {
-        title: "Katalog",
+        title: "Produk",
+        resource: [
+            "katalog", "Persediaan", "Pesanan", "Gudang (WMS)", "Intelegensi Bisnis", "Pembukuan"
+        ]
     },
     {
-        title: "Persediaan",
+        title: "Harga",
     },
     {
-        title: "Penjualan",
+        title: "Partner",
     },
     {
-        title: "Pembelian",
+        title: "Affiliasi",
+        resource: [
+            "Affiliasi", "Ambassador",
+        ]
     },
     {
-        title: "Gudang",
+        title: "Dukungan",
+        resource: [
+            "Layanan Purna ", "Ambassador",
+        ]
     },
-    {
-        title: "Keuangan",
-    }
 ]
